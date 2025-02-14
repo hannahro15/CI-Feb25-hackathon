@@ -1,3 +1,10 @@
-{% extends "base.html" %} {% load static %} {% block page_header %}
-<h1>CONTACT</h1>
+{% extends "base.html" %}
+{% load static %}
+{% block page_header %}
+    <h1>CONTACT</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+    </form>
 {% endblock %}
