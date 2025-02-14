@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="min-h-screen py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Profile Header -->
+        <div class="glass-effect rounded-3xl overflow-hidden mb-8">
+            <div class="relative h-48 bg-gradient-to-r from-purple-500 to-rose-500">
+                <div class="absolute -bottom-16 left-8">
+                    <div class="relative">
+                        {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}" alt="Profile Picture"
+                                 class="w-32 h-32 rounded-full border-4 border-white object-cover">
+                        {% else %}
+                            <div class="w-32 h-32 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center">
+                                <span class="text-4xl text-gray-400">{{ user.username|make_list|first|upper }}</span>
+                            </div>
+                        {% endif %}
+                        <form id="avatar-form" method="POST" action="{% url 'profiles:upload_avatar' %}" enctype="multipart/form-data" class="hidden">
+                            {% csrf_token %}
+                            <input type="file" name="avatar" id="avatar-upload" accept="image/*">
+                        </form>
+                        <button onclick="document.getElementById('avatar-upload').click()"
+                                class="absolute bottom-0 right-0 p-2 bg-white rounded-full shadow-lg hover:bg-gray-50">
+                            <i class="fas fa-camera text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pt-20 px-8 pb-8">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">{{ user.get_full_name|default:user.username }}</h1>
+                        <div class="flex items-center mt-2 text-gray-600">
+                            <i class="far fa-calendar-alt mr-2"></i>
+                            <span>Member since {{ user.date_joined|date:"F Y" }}</span>
+                        </div>
+                    </div>
+                    <a href="{% url 'profiles:profile_edit' %}"
+                       class="flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-edit mr-2"></i>
+                        Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Personal Information -->
+            <div class="glass-effect rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-6">Personal Information</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-sm text-gray-500">Email</label>
+                        <p class="text-gray-700">{{ user.email }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-500">Location</label>
+                        <p class="text-gray-700">{{ user.profile.location|default:"Not specified" }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-500">Bio</label>
+                        <p class="text-gray-700">{{ user.profile.bio|default:"Tell us about yourself" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preferences -->
+            <div class="glass-effect rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-6">Preferences</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-sm text-gray-500">Event Interests</label>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            {% for interest in user.profile.interests.all %}
+                                <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">
+                                    {{ interest.name }}
+                                </span>
+                            {% empty %}
+                                <p class="text-gray-500">No interests selected</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-500">Age Preference</label>
+                        <p class="text-gray-700">{{ user.profile.age_preference|default:"Not specified" }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-500">Location Radius</label>
+                        <p class="text-gray-700">{{ user.profile.location_radius|default:"Not specified" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events -->
+            <div class="glass-effect rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-6">Upcoming Events</h2>
+                <div class="space-y-4">
+                    {% for event in user.profile.saved_events.all %}
+                        <div class="flex items-start space-x-4">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}" alt="{{ event.title }}"
+                                     class="w-20 h-20 rounded-lg object-cover">
+                            {% else %}
+                                <div class="w-20 h-20 rounded-lg bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-calendar text-gray-400 text-2xl"></i>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <h3 class="font-medium text-gray-900">{{ event.title }}</h3>
+                                <p class="text-sm text-gray-600">{{ event.date|date:"F j, Y" }}</p>
+                                <p class="text-sm text-gray-600">{{ event.location_name }}</p>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-gray-500">No upcoming events</p>
+                    {% endfor %}
+                    
+                    <a href="{% url 'events:event_list' %}"
+                       class="block w-full mt-4 px-4 py-2 bg-gradient-to-r from-rose-500 to-purple-600 
+                              text-center text-white rounded-xl hover:from-rose-600 hover:to-purple-700 
+                              transition-all transform hover:scale-[1.02]">
+                        Browse Events
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    // Handle avatar upload
+    document.getElementById('avatar-upload').addEventListener('change', function() {
+        // Submit the avatar form
+        document.getElementById('avatar-form').submit();
+    });
+</script>
+{% endblock %}
+{% endblock %}

@@ -60,13 +60,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'allauth.socialaccount',
+    'profiles.apps.ProfilesConfig',
     'allauth',
     'allauth.account',
     #'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.providers.facebook',
     'home',
     'main',
-    'user_profile',
     'events',
 
     # other
@@ -75,15 +76,29 @@ INSTALLED_APPS = [
     'storages',
 ]
 
+ACCOUNT_LOGIN_METHODS = {'username'}  # Use username for login
+ACCOUNT_EMAIL_REQUIRED = False  # Email is not required
+ACCOUNT_USERNAME_REQUIRED = True  # Username is required during signup
+ACCOUNT_EMAIL_VERIFICATION = 'none'  
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+ACCOUNT_AUTHENTICATION_METHOD = 'username'  
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'  
+LOGOUT_REDIRECT_URL = '/'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'dating_event_app.urls'
@@ -95,7 +110,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'templates', 'allauth'),
+            os.path.join(BASE_DIR, 'templates', 'allauth','profiles'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {

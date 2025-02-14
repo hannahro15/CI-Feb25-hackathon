@@ -107,11 +107,10 @@
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-50 hover:text-rose-600">
                     Match Making
                   </a>
-                  <a
-                    href="{% url 'user_profile' %}"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-50 hover:text-rose-600">
+                  <a 
+                  href="{% url 'profiles:profile_view' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-50 hover:text-rose-600">
                     My Profile
-                  </a>
+                </a>
                   <a
                     href="{% url 'account_logout' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-rose-50 hover:text-rose-600">
@@ -200,11 +199,10 @@
                 class="block px-4 py-2 text-gray-700 hover:bg-rose-50 hover:text-rose-600 rounded-lg">
                 Match Making
               </a>
-              <a
-                href="{% url 'profile' %}"
-                class="block px-4 py-2 text-gray-700 hover:bg-rose-50 hover:text-rose-600 rounded-lg">
+              <a 
+              href="{% url 'profiles:profile_view' %}" class="block px-4 py-2 text-gray-700 hover:bg-rose-50 hover:text-rose-600 rounded-lg">
                 My Profile
-              </a>
+            </a>
               <a
                 href="{% url 'account_logout' %}"
                 class="block px-4 py-2 text-gray-700 hover:bg-rose-50 hover:text-rose-600 rounded-lg">
@@ -379,56 +377,27 @@
       }
 
       // Close mobile menu on window resize if screen becomes larger
-      window.addEventListener("resize", function () {
-        if (window.innerWidth >= 768) {
-          // 768px is Tailwind's md breakpoint
-          const mobileMenu = document.getElementById("mobileMenu");
-          if (!mobileMenu.classList.contains("hidden")) {
-            mobileMenu.classList.add("hidden");
-            document.body.style.overflow = "";
-          }
-        }
-      });
-
-      // Handle clicks outside mobile menu to close it
-      document.addEventListener("click", function (event) {
-        const mobileMenu = document.getElementById("mobileMenu");
-        const mobileMenuButton = document.querySelector(
-          '[onclick="toggleMobileMenu()"]'
-        );
-
-        if (
-          !mobileMenu.classList.contains("hidden") &&
-          !mobileMenu.contains(event.target) &&
-          event.target !== mobileMenuButton
-        ) {
-          toggleMobileMenu();
-        }
-      });
-
-      // Initialize dropdown hover states for desktop
       document.addEventListener("DOMContentLoaded", function () {
         const dropdowns = document.querySelectorAll(".group");
 
         dropdowns.forEach((dropdown) => {
+          const button = dropdown.querySelector("button");
           const menu = dropdown.querySelector(".group-hover\\:block");
 
-          // Handle touch events for mobile/tablet
-          dropdown.addEventListener("touchstart", function (e) {
-            e.preventDefault();
-            dropdowns.forEach((d) => {
-              if (d !== dropdown) {
-                d.querySelector(".group-hover\\:block").classList.add("hidden");
-              }
-            });
+          // Toggle dropdown on button click
+          button.addEventListener("click", function (e) {
+            e.stopPropagation();
             menu.classList.toggle("hidden");
           });
 
           // Close dropdown when clicking outside
-          document.addEventListener("click", function (e) {
-            if (!dropdown.contains(e.target)) {
-              menu.classList.add("hidden");
-            }
+          document.addEventListener("click", function () {
+            menu.classList.add("hidden");
+          });
+
+          // Prevent dropdown from closing when clicking inside the menu
+          menu.addEventListener("click", function (e) {
+            e.stopPropagation();
           });
         });
       });
