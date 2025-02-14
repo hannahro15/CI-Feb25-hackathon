@@ -39,7 +39,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dating-events-app-512687071453.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['dating-events-app-512687071453.herokuapp.com', '127.0.0.1', '127.0.0.1:8000', 'localhost']
 
 # Add deployed project links here
 CSRF_TRUSTED_ORIGINS = []
@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'home',
     'main',
     'user_profile',
+    'contact',
 
     # other
     'crispy_forms',
