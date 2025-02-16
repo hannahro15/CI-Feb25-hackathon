@@ -252,12 +252,7 @@ LOGIN_REDIRECT_URL = '/'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-LOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ['CLOUDINARY_CLOUD_NAME'], 
-    'API_KEY': os.environ['CLOUDINARY_API_KEY'],
-    'API_SECRET': os.environ['CLOUDINARY_API_SECRET'],
-    'SECURE': True  # Forces HTTPS
-}
+# 
 
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
@@ -293,13 +288,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Cloudinary settings for production only
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ['CLOUDINARY_CLOUD_NAME'],  # Read from Heroku Config Vars
-    'API_KEY': os.environ['CLOUDINARY_API_KEY'],
-    'API_SECRET': os.environ['CLOUDINARY_API_SECRET'],
-    'SECURE': True  # Forces HTTPS for images
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', ''),  # Avoids KeyError
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', ''),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', ''),
+    'SECURE': True
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Keep all your other existing settings as they are
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
