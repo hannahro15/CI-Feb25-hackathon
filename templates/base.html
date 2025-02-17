@@ -28,6 +28,14 @@
       .mobile-menu.hidden {
         transform: translateX(-100%);
       }
+      /* hero image*/
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-25px); }
+      }
+      .animate-bounce {
+          animation: bounce 2s infinite;
+      }
     </style>
     {% endblock %} {% block extra_css %} {% endblock %} {% block corejs %}
     <script

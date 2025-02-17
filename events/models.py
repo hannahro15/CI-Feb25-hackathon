@@ -49,7 +49,7 @@ class Event(models.Model):
             'width': 'auto',
             'crop': 'scale'
         },
-        default='default_profile_ju9xum' 
+        default='default_post_o0lbny'  
     )
 
 
