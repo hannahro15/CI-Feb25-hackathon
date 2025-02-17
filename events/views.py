@@ -1,3 +1,6 @@
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -8,18 +11,23 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib import messages
 from django.shortcuts import redirect
-import logging
 from .forms import EventForm
-
-import logging
 from django.views.generic import ListView
 from django.db.models import Q
 from django.utils import timezone
 from datetime import timedelta
 from .models import Event, EventCategory
 from django import forms
+import cloudinary
+import cloudinary.uploader
+import logging
+import os
+import json
+
 
 logger = logging.getLogger(__name__)
+
+
 
 class EventListView(ListView):
     model = Event
@@ -130,24 +138,86 @@ class EventListView(ListView):
 
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
-    form_class = EventForm  # Use the custom form
+    form_class = EventForm
     template_name = 'events/event_form.html'
 
     def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        form.instance.is_demo = False  # Ensure it's not a demo event
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('events:event_detail', kwargs={'slug': self.object.slug})
+        """Handle successful event creation"""
+        try:
+            form.instance.created_by = self.request.user
+            form.instance.is_demo = False
+            response = super().form_valid(form)
+            messages.success(self.request, "Event created successfully!")
+            return response
+        except Exception as e:
+            print(f"Error details: {str(e)}")
+            messages.error(self.request, f"Error creating event: {str(e)}")
+            return self.form_invalid(form)
+        
+       
 
     def form_invalid(self, form):
         print("Form errors:", form.errors)
-        print("POST data received:", self.request.POST)
-        print("FILES received:", self.request.FILES)  # Debug uploaded image
-        messages.error(self.request, "There was an error creating the event.")
-        return self.render_to_response(self.get_context_data(form=form))
+        print("POST data:", self.request.POST)
+        print("Files:", self.request.FILES)
+        messages.error(self.request, "Please correct the errors below.")
+        return super().form_invalid(form)
 
+# @csrf_exempt
+# def test_upload(request):
+#     if request.method == 'GET':
+#         return render(request, 'events/test_upload.html')
+    
+#     elif request.method == 'POST' and request.FILES.get('image'):
+#         try:
+#             # Configure Cloudinary with the correct cloud name
+#             cloudinary.config( 
+#                 cloud_name = "dpw2txejq",  # New cloud name
+#                 api_key = "526814898457713",
+#                 api_secret = "_5wjQBNeHbUE2VJsLr2_UgmfvLs"
+#             )
+            
+#             print("Pre-upload Configuration:")
+#             print(f"Cloud name: {cloudinary.config().cloud_name}")
+#             print(f"API key: {cloudinary.config().api_key}")
+            
+#             # Get the image file
+#             image_file = request.FILES['image']
+            
+#             # Try upload with minimal parameters
+#             result = cloudinary.uploader.upload(
+#                 image_file,
+#                 resource_type="auto"
+#             )
+            
+#             return JsonResponse({
+#                 'success': True,
+#                 'url': result.get('url'),
+#                 'public_id': result.get('public_id')
+#             })
+#         except Exception as e:
+#             print(f"Detailed error information:")
+#             print(f"Error type: {type(e).__name__}")
+#             print(f"Error message: {str(e)}")
+            
+#             return JsonResponse({
+#                 'success': False,
+#                 'error': str(e),
+#                 'error_type': type(e).__name__
+#             })
+            
+#     return JsonResponse({'error': 'No image provided'}, status=400)
+
+# def verify_cloudinary_config():
+#     try:
+#         # Try to get account info
+#         account_info = cloudinary.api.ping()
+#         print("Cloudinary Account Info:", account_info)
+#         return True
+#     except Exception as e:
+#         print("Cloudinary Verification Error:", str(e))
+#         return False
+    
     
 class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Event
