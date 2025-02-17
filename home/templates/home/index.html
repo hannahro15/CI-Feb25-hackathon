@@ -74,56 +74,58 @@
 {% block content %}
 <!-- Event Types Section -->
 <section class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-purple-600">
-                Popular Event Types
-            </span>
-        </h2>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-purple-600">
+              Popular Event Types
+          </span>
+      </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Speed Dating Card -->
-            <div class="glass-effect rounded-xl overflow-hidden shadow-lg">
-                <img src="{% static 'images/speed-dating.jpg' %}" alt="Speed Dating" class="w-full h-48 object-cover"/>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">Speed Dating</h3>
-                    <p class="text-gray-600 mb-4">Quick, meaningful conversations in upscale London venues.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-rose-600 font-semibold">From £25</span>
-                        <span class="text-gray-500 text-sm">2-3 hours</span>
-                    </div>
-                </div>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Speed Dating Card -->
+          <a href="{% url 'events:event_list' %}?category=speed-dating" 
+             class="group glass-effect rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <img src="{% static 'images/speed-dating.jpg' %}" alt="Speed Dating" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <div class="p-6">
+                  <h3 class="text-xl font-bold mb-2 group-hover:text-rose-600 transition-colors">Speed Dating</h3>
+                  <p class="text-gray-600 mb-4">Quick, meaningful conversations in upscale London venues.</p>
+                  <div class="flex items-center justify-between">
+                      <span class="text-rose-600 font-semibold">From £25</span>
+                      <span class="text-gray-500 text-sm">2-3 hours</span>
+                  </div>
+              </div>
+          </a>
 
-            <!-- Cooking Class Card -->
-            <div class="glass-effect rounded-xl overflow-hidden shadow-lg">
-                <img src="{% static 'images/cooking-class.jpg' %}" alt="Cooking Class" class="w-full h-48 object-cover"/>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">Cooking Classes</h3>
-                    <p class="text-gray-600 mb-4">Learn to cook while meeting potential partners.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-rose-600 font-semibold">From £45</span>
-                        <span class="text-gray-500 text-sm">3 hours</span>
-                    </div>
-                </div>
-            </div>
+          <!-- Cooking Class Card -->
+          <a href="{% url 'events:event_list' %}?category=cooking-class" 
+             class="group glass-effect rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <img src="{% static 'images/cooking-class.jpg' %}" alt="Cooking Class" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <div class="p-6">
+                  <h3 class="text-xl font-bold mb-2 group-hover:text-rose-600 transition-colors">Cooking Classes</h3>
+                  <p class="text-gray-600 mb-4">Learn to cook while meeting potential partners.</p>
+                  <div class="flex items-center justify-between">
+                      <span class="text-rose-600 font-semibold">From £45</span>
+                      <span class="text-gray-500 text-sm">3 hours</span>
+                  </div>
+              </div>
+          </a>
 
-            <!-- Wine Tasting Card -->
-            <div class="glass-effect rounded-xl overflow-hidden shadow-lg">
-                <img src="{% static 'images/wine-tasting.jpg' %}" alt="Wine Tasting" class="w-full h-48 object-cover"/>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">Wine Tasting</h3>
-                    <p class="text-gray-600 mb-4">Sophisticated evenings with fellow wine enthusiasts.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-rose-600 font-semibold">From £35</span>
-                        <span class="text-gray-500 text-sm">2 hours</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+          <!-- Wine Tasting Card -->
+          <a href="{% url 'events:event_list' %}?category=wine-tasting" 
+             class="group glass-effect rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <img src="{% static 'images/wine-tasting.jpg' %}" alt="Wine Tasting" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <div class="p-6">
+                  <h3 class="text-xl font-bold mb-2 group-hover:text-rose-600 transition-colors">Wine Tasting</h3>
+                  <p class="text-gray-600 mb-4">Sophisticated evenings with fellow wine enthusiasts.</p>
+                  <div class="flex items-center justify-between">
+                      <span class="text-rose-600 font-semibold">From £35</span>
+                      <span class="text-gray-500 text-sm">2 hours</span>
+                  </div>
+              </div>
+          </a>
+      </div>
+  </div>
 </section>
-
 <!-- Why Choose Us Section -->
 <section class="py-16 bg-gradient-to-br from-rose-50 to-purple-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
