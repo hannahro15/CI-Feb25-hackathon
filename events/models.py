@@ -1,4 +1,5 @@
 # events/models.py
+from django.urls import reverse
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
@@ -6,6 +7,7 @@ from django.core.validators import URLValidator
 from cloudinary.models import CloudinaryField
 import cloudinary
 import uuid
+
 
 class EventCategory(models.Model):
     name = models.CharField(max_length=100)
@@ -40,18 +42,21 @@ class Event(models.Model):
     is_demo = models.BooleanField(default=False)
     image = CloudinaryField(
         'image',
-        folder='events',  # This creates an 'events' folder in your Cloudinary account
+        folder='dating_events',
         null=True,
         blank=True,
         transformation={
             'quality': 'auto:good',
             'fetch_format': 'auto',
-            'width': 'auto',
-            'crop': 'scale'
+            'width': 800,
+            'height': 600,
+            'crop': 'fill',
+            'gravity': 'auto'
         },
-        default='default_post_o0lbny'  
+        resource_type='image'
     )
-
+    def get_absolute_url(self):
+        return reverse('events:event_detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         # Generate a slug if it doesn’t exist

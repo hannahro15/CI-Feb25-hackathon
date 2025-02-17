@@ -29,6 +29,16 @@ class EventForm(forms.ModelForm):
         })
     )
 
+    image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(
+            attrs={
+                'class': 'w-full p-3 rounded-xl border border-gray-200 bg-white/50 focus:outline-none focus:ring-2 focus:ring-rose-500',
+                'accept': 'image/*'
+            }
+        )
+    )
+
     class Meta:
         model = Event
         fields = [
@@ -70,6 +80,15 @@ class EventForm(forms.ModelForm):
             )
         }
 
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            # Add any image validation you need
+            allowed_types = ['image/jpeg', 'image/png', 'image/gif']
+            if hasattr(image, 'content_type') and image.content_type not in allowed_types:
+                raise forms.ValidationError('Please upload a valid image file (JPEG, PNG, or GIF)')
+        return image
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Make certain fields optional

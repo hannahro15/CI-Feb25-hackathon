@@ -4,10 +4,13 @@
 
     <div class="event-image relative overflow-hidden h-48">
         {% if event.image and event.image.url %}
-            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover">
+            <img src="{{ event.image.url }}" 
+                 alt="{{ event.title }}" 
+                 class="w-full h-full object-cover">
         {% else %}
-            <img src="https://res.cloudinary.com/{{ CLOUDINARY_CLOUD_NAME }}/image/upload/v1/default_post_o0lbny" 
-                 alt="{{ event.title }}" class="w-full h-full object-cover">
+            <img src="https://res.cloudinary.com/{{ cloudinary_cloud_name }}/image/upload/default_post_o0lbny" 
+                 alt="{{ event.title }}" 
+                 class="w-full h-full object-cover">
         {% endif %}
     </div>
     
@@ -33,19 +36,13 @@
         <div class="flex justify-between items
 -center">
             <span class="text-lg font-semibold text-purple-600">£{{ event.price }}</span>
-            {% if event.booking_url %}
-                <a href="{{ event.booking_url }}" target="_blank" rel="noopener noreferrer"
-                   class="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl 
-                          hover:from-purple-600 hover:to-indigo-700 transition-all transform hover:scale-[1.02]">
-                    Book Now
-                </a>
-            {% else %}
+            
                 <a href="{% url 'events:event_detail' event.slug %}" 
                    class="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl 
                           hover:from-purple-600 hover:to-indigo-700 transition-all transform hover:scale-[1.02]">
                     View Details
                 </a>
-            {% endif %}
+
         </div>
     </div>
 </div>

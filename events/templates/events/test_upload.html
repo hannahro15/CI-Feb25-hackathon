@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-4">Test Image Upload</h2>
+    <form action="{% url 'events:test_upload' %}" method="post" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Select Image</label>
+            <input type="file" name="image" accept="image/*" class="mt-1 block w-full">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
+    </form>
+</div>
+{% endblock %}
