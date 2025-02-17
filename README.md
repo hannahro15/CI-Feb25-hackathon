@@ -98,7 +98,7 @@ This project is a dating events app where you can select events around the uk to
 ## Future improvements
 
  - Add a booking functionality to events
- - Fix the bugs within CRUD for events including getting the images to show in the event containers.
+ - Fix the odd bug within CRUD for events when updating events.
  - Add a review/comment and rating system for each event.
 
 ## Deployment
