@@ -1,6 +1,6 @@
 # Love.exe - February Hackathon 2025
 
-![home screenshot](home.png)
+![home screenshot](dating-app.png)
 The site can be accessed [here](https://dating-events-app-512687071453.herokuapp.com/). 
 
 ## Goal
@@ -95,9 +95,11 @@ This project is a dating events app where you can select events around the uk to
 #### Cookie policy 
 ![Cookie policy page screenshot](cookies.png)
 
+## Future improvements
 
-#### Error pages
-
+ - Add a booking functionality to events
+ - Fix the bugs within CRUD for events including getting the images to show in the event containers.
+ - Add a review/comment and rating system for each event.
 
 ## Deployment
 - The website was deployed to Heroku and can be found [here](https://dating-events-app-512687071453.herokuapp.com/).
