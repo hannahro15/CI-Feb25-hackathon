@@ -1,193 +1,203 @@
-{% extends "base.html" %} {% load static %} {% block page_header %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
 <!-- Hero Section -->
-<div class="max-w-6xl mx-auto text-center px-4 pt-16">
-  <h3
-    class="pb-8 text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">
-    Find Your Perfect Date Night
-  </h3>
+<div class="relative min-h-[90vh] flex items-center justify-center">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="{% static 'images/perfect-match.jpg' %}" 
+             alt="Dating Event Background" 
+             class="w-full h-full object-cover"/>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
+    </div>
 
-  <p class="max-w-3xl mx-auto mb-6 text-lg md:text-2xl text-black pb-4">
-    Events and experiences for every stage of your love story
-  </p>
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Animated Floating Hearts (optional) -->
+        <div class="absolute -top-20 left-1/4 text-rose-500 opacity-30 animate-bounce delay-1000">❤</div>
+        <div class="absolute -top-10 right-1/4 text-purple-500 opacity-30 animate-bounce">❤</div>
 
-  <div class="flex justify-center">
-    <img
-      class="opacity-50 rounded-3xl w-full max-w-lg pb-3"
-      src="{% static 'images/perfect-match.jpg' %}"
-      alt="header-image" />
-  </div>
+        <!-- Main Content -->
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+            Find Your Perfect
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-400 to-purple-400">
+                Match
+            </span>
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
+            Join London's most exciting dating events. From speed dating to cooking classes, 
+            discover unique ways to meet someone special.
+        </p>
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'events:event_list' %}" 
+               class="px-8 py-4 bg-gradient-to-r from-rose-500 to-purple-600 text-white rounded-xl 
+                      hover:from-rose-600 hover:to-purple-700 transition-all transform hover:scale-[1.02]
+                      text-lg font-semibold">
+                Browse Events
+            </a>
+            <a href="{% url 'account_signup' %}" 
+               class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl 
+                      hover:bg-white/20 transition-all border border-white/30
+                      text-lg font-semibold">
+                Sign Up Free
+            </a>
+        </div>
 
-  <div class="flex justify-center mt-8 pb-8">
-    <a
-      href="{% url 'events:event_list' %}"
-      class="px-6 py-3 text-lg rounded-full shadow-lg bg-gradient-to-r from-rose-500 to-purple-600 text-white hover:from-rose-600 hover:to-purple-700 transition-all max-w-xs sm:max-w-sm md:max-w-lg mx-auto w-full">
-      Browse Events
-    </a>
-  </div>
+        <!-- Quick Stats -->
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white mb-2">500+</p>
+                <p class="text-gray-300">Monthly Events</p>
+            </div>
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white mb-2">10,000+</p>
+                <p class="text-gray-300">Active Members</p>
+            </div>
+            <div class="text-center hidden md:block">
+                <p class="text-3xl font-bold text-white mb-2">1,000+</p>
+                <p class="text-gray-300">Success Stories</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/50 animate-bounce">
+        <i class="fas fa-chevron-down"></i>
+    </div>
 </div>
+{% endblock %}
 
-<!-- About Section -->
-<section id="about" class="bg-white py-12">
-  <div class="text-center mb-8">
-    <h4
-      class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">
-      About Date Night Events
-    </h4>
-  </div>
+{% block content %}
+<!-- Event Types Section -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-purple-600">
+                Popular Event Types
+            </span>
+        </h2>
 
-  <div
-    class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 place-items-center">
-    <!-- Box 1 -->
-    <div
-      class="flex flex-col p-6 rounded-lg shadow-lg bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100 lg:w-[20rem] w-[80%]">
-      <p class="text-lg font-semibold">200+ Monthly Events</p>
-      <p class="text-xs font-light">
-        Speed Dating, Traffic Light Parties, and more
-      </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Speed Dating Card -->
+            <div class="glass-effect rounded-xl overflow-hidden shadow-lg">
+                <img src="{% static 'images/speed-dating.jpg' %}" alt="Speed Dating" class="w-full h-48 object-cover"/>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Speed Dating</h3>
+                    <p class="text-gray-600 mb-4">Quick, meaningful conversations in upscale London venues.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-rose-600 font-semibold">From £25</span>
+                        <span class="text-gray-500 text-sm">2-3 hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cooking Class Card -->
+            <div class="glass-effect rounded-xl overflow-hidden shadow-lg">
+                <img src="{% static 'images/cooking-class.jpg' %}" alt="Cooking Class" class="w-full h-48 object-cover"/>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Cooking Classes</h3>
+                    <p class="text-gray-600 mb-4">Learn to cook while meeting potential partners.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-rose-600 font-semibold">From £45</span>
+                        <span class="text-gray-500 text-sm">3 hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wine Tasting Card -->
+            <div class="glass-effect rounded-xl overflow-hidden shadow-lg">
+                <img src="{% static 'images/wine-tasting.jpg' %}" alt="Wine Tasting" class="w-full h-48 object-cover"/>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Wine Tasting</h3>
+                    <p class="text-gray-600 mb-4">Sophisticated evenings with fellow wine enthusiasts.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-rose-600 font-semibold">From £35</span>
+                        <span class="text-gray-500 text-sm">2 hours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Box 2 -->
-    <div
-      class="flex flex-col p-6 rounded-lg shadow-lg bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100 lg:w-[20rem] w-[80%]">
-      <p class="text-lg font-semibold">Active Community</p>
-      <p class="text-xs font-light">xxxx Active Members</p>
-    </div>
-
-    <!-- Box 3 -->
-    <div
-      class="flex flex-col p-6 rounded-lg shadow-lg bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100 lg:w-[20rem] w-[80%]">
-      <p class="text-lg font-semibold">Expert Event Partners</p>
-      <p class="text-xs font-light">Our Event Partners</p>
-    </div>
-  </div>
 </section>
 
-<!-- Singles Events -->
-<section
-  class="py-12 bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100">
-  <div class="text-center mb-8">
-    <h4 class="text-3xl font-bold text-center">For Singles</h4>
-    <p>Find Your Perfect Match</p>
-  </div>
+<!-- Why Choose Us Section -->
+<section class="py-16 bg-gradient-to-br from-rose-50 to-purple-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Why Choose Our Events?</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="glass-effect rounded-xl p-6 text-center">
+                <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-star text-rose-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Curated Events</h3>
+                <p class="text-gray-600">Carefully selected venues and experiences designed for meaningful connections.</p>
+            </div>
 
-  <!-- Singles Cards -->
-  <div
-    class="grid grid-cols-1 lg:grid-cols-3 lg:grid-cols-3 gap-14 max-w-6xl mx-auto px-4 place-items-center">
-    <!-- Card 1 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg bg-white shadow-lg w-[18rem] md:w-[20rem]">
-      <p class="text-lg font-semibold">Speed Dating</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/speed-dating.jpg' %}"
-        alt="speed-dating-image" />
-    </div>
+            <!-- Feature 2 -->
+            <div class="glass-effect rounded-xl p-6 text-center">
+                <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-rose-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Quality Matches</h3>
+                <p class="text-gray-600">Meet like-minded singles in a relaxed and sophisticated atmosphere.</p>
+            </div>
 
-    <!-- Card 2 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg bg-white shadow-lg w-[18rem] md:w-[20rem]">
-      <p class="text-lg font-semibold">Singles Mixers</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/singles-mixers.jpg' %}"
-        alt="singles-mixers-image" />
+            <!-- Feature 3 -->
+            <div class="glass-effect rounded-xl p-6 text-center">
+                <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar text-rose-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Regular Schedule</h3>
+                <p class="text-gray-600">New events added weekly across London to fit your schedule.</p>
+            </div>
+        </div>
     </div>
-
-    <!-- Card 3 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg bg-white shadow-lg w-[18rem] md:w-[20rem]">
-      <p class="text-lg font-semibold">Group Activities</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/group-activities.jpg' %}"
-        alt="group-activities-image" />
-    </div>
-  </div>
 </section>
 
-<!-- For Dating Couples -->
-<section class="py-12 bg-white">
-  <div class="text-center mb-8">
-    <h4 class="text-3xl font-bold">For Dating Couples</h4>
-    <p>Keep the romance alive</p>
-  </div>
-
-  <!-- Couples Cards -->
-  <div
-    class="grid grid-cols-1 lg:grid-cols-3 lg:grid-cols-3 gap-14 max-w-6xl mx-auto px-4 place-items-center">
-    <!-- Card 1 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg shadow-lg bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100 w-[18rem] md:w-[20-rem]">
-      <p class="text-lg font-semibold">Cooking Classes</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/cooking-classes.jpg' %}"
-        alt="cooking-classes-image" />
+<!-- Success Stories Preview -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Success Stories</h2>
+        
+        <div class="glass-effect rounded-xl p-8 max-w-3xl mx-auto">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-heart text-rose-500"></i>
+                </div>
+                <div>
+                    <p class="text-gray-600 italic mb-4">
+                        "I never believed in love at first sight until I met Ben at a speed dating event. 
+                        We clicked instantly and have been inseparable ever since!"
+                    </p>
+                    <p class="font-semibold">Sarah & Ben, London</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{% url 'success_stories' %}" class="text-rose-600 hover:text-rose-700 font-semibold">
+                Read More Success Stories <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
     </div>
-
-    <!-- Card 2 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg shadow-lg bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100 w-[18rem] md:w-[20-rem]">
-      <p class="text-lg font-semibold">Wine Tasting</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/wine-tasting.jpg' %}"
-        alt="wine-tasting-image" />
-    </div>
-
-    <!-- Card 3 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg shadow-lg bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100 w-[18rem] md:w-[20-rem]">
-      <p class="text-lg font-semibold">Adventure Days</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/adventure-days.jpg' %}"
-        alt="adventure-days-image" />
-    </div>
-  </div>
 </section>
 
-<!-- For Married Couples -->
-<section
-  class="py-12 bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100">
-  <div class="text-center mb-8">
-    <h4 class="text-3xl font-bold">For Married Couples</h4>
-    <p>Reignite the spark</p>
-  </div>
-
-  <!-- Married Cards -->
-  <div
-    class="grid grid-cols-1 lg:grid-cols-3 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 place-items-center">
-    <!-- Card 1 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg bg-white shadow-lg w-[18rem] md:w-[20rem]">
-      <p class="text-lg font-semibold">Couples Retreat</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/couples-retreat.jpg' %}"
-        alt="couples-retreat-image" />
+<!-- CTA Section -->
+<section class="py-16 bg-gradient-to-r from-rose-500 to-purple-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">Ready to Find Your Perfect Match?</h2>
+        <p class="text-xl mb-8">Join our next event and start your love story.</p>
+        <a href="{% url 'events:event_list' %}" 
+           class="px-8 py-4 bg-white text-rose-600 rounded-xl font-semibold 
+                  hover:bg-rose-50 transition-all transform hover:scale-[1.02]">
+            Browse Upcoming Events
+        </a>
     </div>
-
-    <!-- Card 2 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg bg-white shadow-lg w-[18rem] md:w-[20rem]">
-      <p class="text-lg font-semibold">Dance Classes</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/dance-classes.jpg' %}"
-        alt="dance-classes-image" />
-    </div>
-
-    <!-- Card 3 -->
-    <div
-      class="flex flex-col items-center p-6 rounded-lg bg-white shadow-lg w-[18rem] md:w-[20rem]">
-      <p class="text-lg font-semibold">Date Night Workshop</p>
-      <img
-        class="rounded-lg object-cover w-full max-w-[12rem] h-[12rem]"
-        src="{% static 'images/dating-workshop.jpg' %}"
-        alt="date-night-workshop-image" />
-    </div>
-  </div>
 </section>
-
 {% endblock %}
